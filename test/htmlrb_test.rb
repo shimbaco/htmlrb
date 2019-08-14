@@ -7,9 +7,11 @@ class HtmlrbTest < Minitest::Test
 
   def test_it_does_something_useful
     html = Htmlrb.build do |t|
-      t.div class: "main" do
+      t.div class: "main", alt: "hello" do
         t.span "hello"
       end
     end
+
+    assert_equal "foo", html
   end
 end

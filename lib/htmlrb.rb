@@ -4,11 +4,11 @@ require "htmlrb/builder"
 require "htmlrb/version"
 
 module Htmlrb
-  class Error < StandardError; end
-
   def self.build
-    Builder.new do |b|
-      yield b
+    builder = Builder.new do |bldr|
+      yield bldr
     end
+
+    builder.build
   end
 end

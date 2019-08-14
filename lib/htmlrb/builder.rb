@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
-require "htmlrb/tags"
+require "htmlrb/tag"
 
 module Htmlrb
   class Builder
     def initialize
-      yield Htmlrb::Tags.new
+      @tag = Htmlrb::Tag.new
+      yield @tag
+    end
+
+    def build
+      @tag.str
     end
   end
 end
