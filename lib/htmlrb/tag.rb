@@ -8,6 +8,10 @@ module Htmlrb
       @html_parts = []
     end
 
+    def doctype
+      @html_parts << "<!DOCTYPE html>"
+    end
+
     def method_missing(method_name, content_or_options = "", options = {}, &block)
       options = content_or_options if content_or_options.is_a?(Hash)
       @html_parts << "<#{method_name}"
