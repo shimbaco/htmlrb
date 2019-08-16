@@ -14,11 +14,14 @@ module Htmlrb
 
     def method_missing(method_name, content_or_options = "", options = {}, &block)
       options = content_or_options if content_or_options.is_a?(Hash)
-      @html_parts << "<#{method_name}"
+      elm_name = method_name.to_s.gsub('_', '-')
+
+      @html_parts << "<#{elm_name}"
 
       @html_parts << " " unless options.empty?
       @html_parts << options.map do |key, val|
-        "#{key}=\"#{val}\""
+        attr_name = key.to_s.gsub('_', '-')
+        "#{attr_name}=\"#{val}\""
       end.join(" ")
 
       @html_parts << ">"
@@ -30,7 +33,7 @@ module Htmlrb
       end
 
       if block || content_or_options.is_a?(String)
-        @html_parts << "</#{method_name}>"
+        @html_parts << "</#{elm_name}>"
       end
 
       nil

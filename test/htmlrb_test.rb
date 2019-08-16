@@ -28,4 +28,39 @@ class HtmlrbTest < Minitest::Test
 
     assert_equal expected_html, actual_html
   end
+
+  def test_it_builds_html_with_some_tag_attributes
+    actual_html = Htmlrb.build do |t|
+      t.a href: "http://yurucamp.jp", class: "Yuru Camp△", target: "_blank" do
+        "Yuru Camp△"
+      end
+    end
+
+    expected_html = %(<a href="http://yurucamp.jp" class="Yuru Camp△" target="_blank">Yuru Camp△</a>)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_it_builds_html_with_a_custom_tag_which_includes_underscore
+    actual_html = Htmlrb.build do |t|
+      t.yuru_camp data_controller: "nadeshiko"
+    end
+
+    expected_html = %(<yuru-camp data-controller="nadeshiko">)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_it_builds_html_with_a_custom_tag_which_includes_underscore_with_block
+    actual_html = Htmlrb.build do |t|
+      t.yuru_camp data_controller: "nadeshiko" do
+        t.span data_target: "hello.output" do
+        end
+      end
+    end
+
+    expected_html = %(<yuru-camp data-controller="nadeshiko"><span data-target="hello.output"></span></yuru-camp>)
+
+    assert_equal expected_html, actual_html
+  end
 end
