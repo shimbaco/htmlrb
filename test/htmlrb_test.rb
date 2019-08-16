@@ -63,4 +63,27 @@ class HtmlrbTest < Minitest::Test
 
     assert_equal expected_html, actual_html
   end
+
+  def test_it_escapes_attribute_values
+    actual_html = Htmlrb.build do |t|
+      t.a href: "<>" do
+      end
+    end
+
+    expected_html = %(<a href="&lt;&gt;"></a>)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_it_escapes_text
+    actual_html = Htmlrb.build do |t|
+      t.a do
+        "<>"
+      end
+    end
+
+    expected_html = %(<a>&lt;&gt;</a>)
+
+    assert_equal expected_html, actual_html
+  end
 end

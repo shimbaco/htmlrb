@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi/escape"
+
 module Htmlrb
   class Tag
     attr_reader :html_parts
@@ -21,15 +23,16 @@ module Htmlrb
       @html_parts << " " unless options.empty?
       @html_parts << options.map do |key, val|
         attr_name = key.to_s.gsub('_', '-')
-        "#{attr_name}=\"#{val}\""
+        "#{attr_name}=\"#{CGI.escapeHTML(val)}\""
       end.join(" ")
 
       @html_parts << ">"
 
       if block
-        @html_parts << block.call(self)
+        content = block.call(self)
+        @html_parts << CGI.escapeHTML(content) if content
       elsif content_or_options.is_a?(String)
-        @html_parts << content_or_options
+        @html_parts << CGI.escapeHTML(content_or_options)
       end
 
       if block || content_or_options.is_a?(String)
