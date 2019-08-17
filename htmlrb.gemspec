@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Koji Shimba"]
   spec.email         = ["me@shimba.co"]
 
-  spec.summary       = "A Ruby DSL for building HTML."
-  spec.description   = "A Ruby DSL for building HTML."
+  spec.summary       = "A DSL for building HTML programmatically."
+  spec.description   = "Htmlrb is a DSL for building HTML programmatically."
   spec.homepage      = "https://github.com/shimbaco/htmlrb"
   spec.license       = "MIT"
 
