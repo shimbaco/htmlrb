@@ -27,9 +27,9 @@ $ gem install htmlrb
 ## Usage
 
 ```ruby
-html = Htmlrb.build do |t|
-  t.a href: "http://yurucamp.jp", class: "Yuru Camp△", target: "_blank" do
-    "Yuru Camp△"
+html = Htmlrb.build do |h|
+  h.tag :a, href: "http://yurucamp.jp", class: "Yuru Camp△", target: "_blank" do
+    h.text "Yuru Camp△"
   end
 end
 
