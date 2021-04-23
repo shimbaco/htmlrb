@@ -17,8 +17,8 @@ module Htmlrb
       @html_str << "<!DOCTYPE html>"
     end
 
-    def text(str)
-      @html_str << CGI.escapeHTML(str)
+    def text(val)
+      @html_str << CGI.escapeHTML(val.to_s)
     end
 
     def html(str)
@@ -31,7 +31,7 @@ module Htmlrb
       @html_str << "<" << elm_name
 
       options.each do |key, val|
-        @html_str << " " << key.to_s.tr("_", "-") << '="' << CGI.escapeHTML(val) << '"'
+        @html_str << " " << key.to_s.tr("_", "-") << '="' << CGI.escapeHTML(val.to_s) << '"'
       end
 
       case

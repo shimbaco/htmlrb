@@ -108,4 +108,16 @@ class HtmlrbTest < Minitest::Test
 
     assert_equal expected_html, actual_html
   end
+
+  def test_it_builds_html_with_non_string_values
+    actual_html = Htmlrb.build do |h|
+      h.tag :span, class: :count do
+        h.text 10
+      end
+    end
+
+    expected_html = %(<span class="count">10</span>)
+
+    assert_equal expected_html, actual_html
+  end
 end
