@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "cgi/escape"
 
 module Htmlrb
@@ -7,44 +5,44 @@ module Htmlrb
     # https://html.spec.whatwg.org/multipage/syntax.html#void-elements
     VOID_ELEMENTS = %w(area base br col embed hr img input link meta param source track wbr).freeze
 
-    attr_reader :html_parts
+    attr_reader :html_str
 
     def initialize
-      @html_parts = []
+      @html_str = ""
     end
 
     def doctype
-      @html_parts << "<!DOCTYPE html>"
+      @html_str << "<!DOCTYPE html>"
     end
 
     def text(str)
-      @html_parts << CGI.escapeHTML(str)
+      @html_str << CGI.escapeHTML(str)
     end
 
     def html(str)
-      @html_parts << str
+      @html_str << str
     end
 
     def tag(name, options = {}, &block)
       elm_name = name.to_s.gsub("_", "-")
 
-      @html_parts << "<#{elm_name}"
+      @html_str << "<#{elm_name}"
 
-      @html_parts << " " unless options.empty?
-      @html_parts << options.map do |key, val|
+      @html_str << " " unless options.empty?
+      @html_str << options.map do |key, val|
         attr_name = key.to_s.gsub("_", "-")
         "#{attr_name}=\"#{CGI.escapeHTML(val)}\""
       end.join(" ")
 
       case
       when block
-        @html_parts << ">"
+        @html_str << ">"
         block.call(self)
-        @html_parts << "</#{elm_name}>"
+        @html_str << "</#{elm_name}>"
       when void_element?(elm_name)
-        @html_parts << " />"
+        @html_str << " />"
       else
-        @html_parts << "></#{elm_name}>"
+        @html_str << "></#{elm_name}>"
       end
     end
 
