@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Improved performance
+
 ## 0.2.0
 
 - Simplified API
