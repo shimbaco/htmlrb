@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cgi/escape"
 
 module Htmlrb
@@ -8,7 +10,7 @@ module Htmlrb
     attr_reader :html_str
 
     def initialize
-      @html_str = ""
+      @html_str = String.new
     end
 
     def doctype
@@ -23,26 +25,24 @@ module Htmlrb
       @html_str << str
     end
 
-    def tag(name, options = {}, &block)
+    def tag(name, options = {})
       elm_name = name.to_s.gsub("_", "-")
 
-      @html_str << "<#{elm_name}"
+      @html_str << "<" << elm_name
 
-      @html_str << " " unless options.empty?
-      @html_str << options.map do |key, val|
-        attr_name = key.to_s.gsub("_", "-")
-        "#{attr_name}=\"#{CGI.escapeHTML(val)}\""
-      end.join(" ")
+      options.each do |key, val|
+        @html_str << " " << key.to_s.gsub("_", "-") << '="' << CGI.escapeHTML(val) << '"'
+      end
 
       case
-      when block
+      when block_given?
         @html_str << ">"
-        block.call(self)
-        @html_str << "</#{elm_name}>"
+        yield self
+        @html_str << "</" << elm_name << ">"
       when void_element?(elm_name)
         @html_str << " />"
       else
-        @html_str << "></#{elm_name}>"
+        @html_str << "></" << elm_name << ">"
       end
     end
 
