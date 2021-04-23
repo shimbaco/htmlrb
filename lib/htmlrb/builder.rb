@@ -10,7 +10,7 @@ module Htmlrb
     end
 
     def build
-      @tag.html_parts.join
+      @tag.html_str
     end
   end
 end

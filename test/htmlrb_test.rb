@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class HtmlrbTest < Minitest::Test
@@ -45,10 +47,10 @@ class HtmlrbTest < Minitest::Test
 
   def test_it_builds_html_with_a_custom_tag_which_includes_underscore
     actual_html = Htmlrb.build do |h|
-      h.tag :yuru_camp, data_controller: "nadeshiko"
+      h.tag :yuru_camp_sankaku, data_character_controller: "nadeshiko"
     end
 
-    expected_html = %(<yuru-camp data-controller="nadeshiko"></yuru-camp>)
+    expected_html = %(<yuru-camp-sankaku data-character-controller="nadeshiko"></yuru-camp-sankaku>)
 
     assert_equal expected_html, actual_html
   end
