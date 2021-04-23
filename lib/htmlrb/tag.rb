@@ -26,12 +26,12 @@ module Htmlrb
     end
 
     def tag(name, options = {})
-      elm_name = name.to_s.gsub("_", "-")
+      elm_name = name.to_s.tr("_", "-")
 
       @html_str << "<" << elm_name
 
       options.each do |key, val|
-        @html_str << " " << key.to_s.gsub("_", "-") << '="' << CGI.escapeHTML(val) << '"'
+        @html_str << " " << key.to_s.tr("_", "-") << '="' << CGI.escapeHTML(val) << '"'
       end
 
       case
